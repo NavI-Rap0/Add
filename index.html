@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Advertisement</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="carousel">
+        <img id="background-image" class="background-image" src="./assets/Image0.png" alt="Background">
+        <div class="left-area">
+            <img src="./assets/SamsungLogo.png" alt="Logo Samsung" class="logo">
+            <h1 id="text-1" class="intro-text text-1">Текст 1</h1>
+            <h2 id="text-2" class="intro-text text-2">Текст 2</h2>
+            <div id="white-area" class="white-area"></div>
+            <div class="text-content">
+                <h1 id="carousel-title" class="carousel-title">
+                    See why the Bespoke Jet™ <br> is “so good” it made this <br> 
+                   <img src="./assets/KitchnLogo.png" class="inline-img" alt="">
+                </h1>
+                <h2 id="carousel-description" class="carousel-description">
+                    Відкрийте для себе інноваційний світ Bespoke Jet™.
+                </h2>
+            </div>
+            <div class="navigation">
+                <img class="navigation-arrow" id="left-arrow" src="./assets/LeftArrow.png" alt="Left Arrow">
+                <span id="slide-counter" class="navigation-counter">1/5</span>
+                <img class="navigation-arrow" id="right-arrow" src="./assets/RightArrow.png" alt="Right Arrow">
+            </div>
+            <button class="buy-button" id="shop-now">SHOP NOW</button>
+        </div>
+        <div class="right-area">
+            <img id="right-image" class="right-image" src="./assets/Image1.png" alt="Right Slide">
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>
+
+
