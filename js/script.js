@@ -7,61 +7,85 @@ const images = [
 ];
 
 const descriptions = [
-    'Відкрийте для себе інноваційний світ Bespoke Jet™.',
-    'Рішення для сучасного дому.',
-    'Неперевершений дизайн та функціональність.',
-    'Технології для кожного дня.',
-    'Відчуйте майбутнє вже сьогодні.',
+    '“The first time I used the Samsung Bespoke Jet™, I cried. I’m not being sensational; I really did. Of course, this vacuum worked great. But that’s not all.” ',
+    '“If you’re an over-cleaner, like myself, you’ll nerd out on all of the functions. If you avoid this chore at all costs, you’ll appreciate how simple Samsung makes it.”',
+    '“Both the floor and pet hair attachments are cleverly designed to eliminate the dreaded hair wrap. (In other words, you’ll never have to tackle hair tangles with a pair of scissors again.)”',
+    '“When I learned the Samsung Bespoke Vac cleaned itself with amazing technology, that’s when I cried. No more scraping spider legs and hair out of the crevices with my hands. Its suction power is so strong, the canister is left perfectly clean after every use. It’s like a vacuum for your vacuum.” ',
+    '“Because it’s so nice-looking, it can live right in the kitchen. No more hauling a vacuum up and down the basement stairs on the daily”',
 ];
 
 let currentIndex = 0;
-let autoPlay = true;
+let autoPlay = false;
+let autoPlayTimer;
 
-// Елементи DOM
-const whiteArea = document.getElementById('white-area');
-const textContent = document.querySelector('.text-content');
-const rightImage = document.getElementById('right-image');
-const slideCounter = document.getElementById('slide-counter');
-const leftArrow = document.getElementById('left-arrow');
-const rightArrow = document.getElementById('right-arrow');
-const buyButton = document.getElementById('shop-now');
+const inlineLink = '<a href="#" class="text__link">Read more...</a>';
 
-// Початкова анімація
-function introAnimation() {
-    gsap.fromTo(whiteArea, { x: '-100%' }, { x: 0, duration: 1, onComplete: () => {
-        gsap.fromTo(textContent, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1 });
-    }});
-}
+const whiteArea = document.querySelector('.carousel__white-area');
+const textContent = document.querySelector('.text');
+const textDescription = document.querySelector('.text__description');
+const rightImage = document.querySelector('.carousel__right-image');
+const slideCounter = document.querySelector('.navigation__counter');
+const leftArrow = document.querySelector('.navigation__arrow--left');
+const rightArrow = document.querySelector('.navigation__arrow--right');
+const leftItems = document.querySelector('.text__items');
 
-// Оновлення слайдів
 function updateSlide(index) {
     rightImage.src = images[index];
     slideCounter.textContent = `${index + 1}/${images.length}`;
-    const description = textContent.querySelector('#carousel-description');
-    description.textContent = descriptions[index];
-    gsap.fromTo(description, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 });
+    textDescription.innerHTML = `${descriptions[index]} ${inlineLink}`;
+    gsap.fromTo(textDescription, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 });
 }
 
-// Автоплей
-setInterval(() => {
-    if (autoPlay) {
-        currentIndex = (currentIndex + 1) % images.length;
-        updateSlide(currentIndex);
-    }
-}, 5000);
+function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayTimer = setInterval(() => {
+        if (autoPlay) {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateSlide(currentIndex);
+        }
+    }, 5000);
+}
 
-// Навігація
+function stopAutoPlay() {
+    clearInterval(autoPlayTimer);
+}
+
 rightArrow.addEventListener('click', () => {
-    autoPlay = false;
     currentIndex = (currentIndex + 1) % images.length;
     updateSlide(currentIndex);
+    startAutoPlay();
 });
 
 leftArrow.addEventListener('click', () => {
-    autoPlay = false;
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     updateSlide(currentIndex);
+    startAutoPlay();
 });
 
-// Запуск
+function introAnimation() {
+    gsap.set('.carousel__background-image', { visibility: 'visible', opacity: 0 });
+    gsap.set('.text__items', { visibility: 'visible', opacity: 0 });
+    gsap.set('.carousel__logo', { opacity: 0 });
+
+    const timeline = gsap.timeline({
+        onComplete: () => {
+            autoPlay = true;
+            startAutoPlay();
+        }
+    });
+
+    timeline
+        .to('.carousel__background-image', { opacity: 1, duration: 1 })
+        .to('.carousel__intro-text--1', { opacity: 1, y: 0, duration: 1 }, "+=0.5")
+        .to('.carousel__intro-text--2', { opacity: 1, y: 0, duration: 1 }, "-=0.5")
+        .to('.carousel__white-area', { opacity: 1, x: 0, duration: 1 })
+        .to(['.text__items', '.carousel__logo'], { opacity: 1, duration: 1 }, "+=1")
+        .to(rightImage, { opacity: 1, y: 0, duration: 0 })
+        .to('.carousel__logo', { x: 0, duration: 1 }, "-=1")
+        .to('.carousel__logo', { y: 0, duration: 1 })
+        .to([textContent, textDescription], { opacity: 1, x: 0, duration: 1 }, "+=0.5");
+}
+
 introAnimation();
+updateSlide(currentIndex);
+

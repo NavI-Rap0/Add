@@ -8,30 +8,35 @@
 </head>
 <body>
     <div class="carousel">
-        <img id="background-image" class="background-image" src="./assets/Image0.png" alt="Background">
-        <div class="left-area">
-            <img src="./assets/SamsungLogo.png" alt="Logo Samsung" class="logo">
-            <h1 id="text-1" class="intro-text text-1">Текст 1</h1>
-            <h2 id="text-2" class="intro-text text-2">Текст 2</h2>
-            <div id="white-area" class="white-area"></div>
-            <div class="text-content">
-                <h1 id="carousel-title" class="carousel-title">
-                    See why the Bespoke Jet™ <br> is “so good” it made this <br> 
-                   <img src="./assets/KitchnLogo.png" class="inline-img" alt="">
+        <p class="carousel__static-text">Bespoke Jet™</p>
+        <img class="carousel__background-image" src="./assets/Image0.png" alt="Background">
+        <div class="carousel__left-area">
+            <img src="./assets/SamsungLogo.png" alt="Logo Samsung" class="carousel__logo">
+            <h1 class="carousel__intro-text carousel__intro-text--1">Текст 1</h1>
+            <h2 class="carousel__intro-text carousel__intro-text--2">Текст 2</h2>
+            <div class="carousel__white-area"></div>
+            <div class="text">
+                <h1 class="text__title">
+                    See why the Bespoke Jet™ <br> is “so good” it made this <br>
+                    <img src="./assets/KitchnLogo.png" class="text__inline-img" alt="Kitchn Logo">
+                    journalist cry
                 </h1>
-                <h2 id="carousel-description" class="carousel-description">
+                <h2 class="text__description">
                     Відкрийте для себе інноваційний світ Bespoke Jet™.
+                    <a href="#" class="text__link">Read more...</a>
                 </h2>
             </div>
-            <div class="navigation">
-                <img class="navigation-arrow" id="left-arrow" src="./assets/LeftArrow.png" alt="Left Arrow">
-                <span id="slide-counter" class="navigation-counter">1/5</span>
-                <img class="navigation-arrow" id="right-arrow" src="./assets/RightArrow.png" alt="Right Arrow">
+            <div class="text__items">
+                <div class="navigation">
+                    <img class="navigation__arrow navigation__arrow--left" src="./assets/LeftArrow.png" alt="Left Arrow">
+                    <span class="navigation__counter">1/5</span>
+                    <img class="navigation__arrow navigation__arrow--right" src="./assets/RightArrow.png" alt="Right Arrow">
+                </div>
+                <button class="carousel__button">SHOP NOW</button>
             </div>
-            <button class="buy-button" id="shop-now">SHOP NOW</button>
         </div>
-        <div class="right-area">
-            <img id="right-image" class="right-image" src="./assets/Image1.png" alt="Right Slide">
+        <div class="carousel__right-area">
+            <img class="carousel__right-image" src="./assets/Image1.png" alt="Right Slide">
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
