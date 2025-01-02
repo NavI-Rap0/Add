@@ -1,1 +1,1 @@
-[deploy](https://github.com/NavI-Rap0/Add/)
+[deploy]([https://github.com/](https://NavI-Rap0.github.io/Add/))
