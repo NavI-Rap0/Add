@@ -27,23 +27,40 @@ const rightImage = document.querySelector('.carousel__right-image');
 const slideCounter = document.querySelector('.navigation__counter');
 const leftArrow = document.querySelector('.navigation__arrow--left');
 const rightArrow = document.querySelector('.navigation__arrow--right');
-const leftItems = document.querySelector('.text__items');
+const leftItems = document.querySelector('.left-area__items');
+const introText = document.querySelector('.carousel__intro-texts');
+const logo = document.querySelector('.left-area__logo');
+const staticTextMini = document.querySelector('.carousel__static-text-mini');
+const textTitle = document.querySelector('.text__title');
 
 function updateSlide(index) {
-    rightImage.src = images[index];
+    // Анімація зникнення зображення
+    gsap.to(rightImage, { opacity: 0, duration: 0, onComplete: () => {
+        // Після завершення зникнення змінюємо джерело зображення
+        rightImage.src = images[index];
+        // Анімація появи нового зображення
+        gsap.to(rightImage, { opacity: 1, duration: 0.2 });
+    }});
+
+    // Оновлення лічильника слайдів і опису
     slideCounter.textContent = `${index + 1}/${images.length}`;
     textDescription.innerHTML = `${descriptions[index]} ${inlineLink}`;
-    gsap.fromTo(textDescription, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 });
+    gsap.fromTo(textDescription, { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 });
 }
+
 
 function startAutoPlay() {
     stopAutoPlay();
     autoPlayTimer = setInterval(() => {
         if (autoPlay) {
+            rightArrow.classList.add('auto-play');
+            setTimeout(() => {
+                rightArrow.classList.remove('auto-play');
+            }, 1000);
             currentIndex = (currentIndex + 1) % images.length;
             updateSlide(currentIndex);
         }
-    }, 5000);
+    }, 4000);
 }
 
 function stopAutoPlay() {
@@ -63,9 +80,12 @@ leftArrow.addEventListener('click', () => {
 });
 
 function introAnimation() {
-    gsap.set('.carousel__background-image', { visibility: 'visible', opacity: 0 });
-    gsap.set('.text__items', { visibility: 'visible', opacity: 0 });
-    gsap.set('.carousel__logo', { opacity: 0 });
+    gsap.set([introText, logo, textTitle], { opacity: 0 });
+    gsap.set([introText, textTitle], { x: -50 });
+    gsap.set([logo], { x: -50, y: 20 });
+    gsap.set(whiteArea, { width: 0, x: -50 });
+    gsap.set(rightImage, { width: '100%' });
+    gsap.set([textDescription, leftItems], { opacity: 0 });
 
     const timeline = gsap.timeline({
         onComplete: () => {
@@ -75,17 +95,19 @@ function introAnimation() {
     });
 
     timeline
-        .to('.carousel__background-image', { opacity: 1, duration: 1 })
-        .to('.carousel__intro-text--1', { opacity: 1, y: 0, duration: 1 }, "+=0.5")
-        .to('.carousel__intro-text--2', { opacity: 1, y: 0, duration: 1 }, "-=0.5")
-        .to('.carousel__white-area', { opacity: 1, x: 0, duration: 1 })
-        .to(['.text__items', '.carousel__logo'], { opacity: 1, duration: 1 }, "+=1")
-        .to(rightImage, { opacity: 1, y: 0, duration: 0 })
-        .to('.carousel__logo', { x: 0, duration: 1 }, "-=1")
-        .to('.carousel__logo', { y: 0, duration: 1 })
-        .to([textContent, textDescription], { opacity: 1, x: 0, duration: 1 }, "+=0.5");
+        .to([introText, logo], { opacity: 1, x: 0, duration: 1 })
+        .to(logo, { y: 0, duration: 1 })
+        .to(textTitle, { opacity: 1, x: 0, duration: 1 })
+        .to(whiteArea, { width: '100%', x: 0, duration: 1, ease: "power2.inOut"})
+        .to(staticTextMini, { color: '#000', duration: 0.5, stagger: 1 }, '-=0.5')
+        .add(() => {
+            rightImage.src = images[currentIndex];
+            slideCounter.textContent = `${currentIndex + 1}/${images.length}`;
+            textDescription.innerHTML = `${descriptions[currentIndex]} ${inlineLink}`;
+        })
+        .to([textDescription, leftItems], { opacity: 1, duration: 1.5  });
 }
 
 introAnimation();
-updateSlide(currentIndex);
+
 

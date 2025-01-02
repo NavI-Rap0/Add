@@ -8,13 +8,15 @@
 </head>
 <body>
     <div class="carousel">
-        <p class="carousel__static-text">Bespoke Jet™</p>
-        <img class="carousel__background-image" src="./assets/Image0.png" alt="Background">
+        <div class="carousel__static-text">Bespoke Jet™</div>
+        <div class="carousel__static-text-mini">*See site for details, pricing from 3/2 to 3/29 while supplies last</div>
+        <div class="carousel__intro-texts">
+            <h2 class="carousel__intro-text--1 carousel__intro-text"><strong class="carousel__intro-text--strong">BE</strong>SPOKE<strong> Jet™</strong></h2>
+            <h3 class="carousel__intro-text--2 carousel__intro-text carousel__intro-text--strong">Save $400 Now</h3>
+        </div>
         <div class="carousel__left-area">
-            <img src="./assets/SamsungLogo.png" alt="Logo Samsung" class="carousel__logo">
-            <h1 class="carousel__intro-text carousel__intro-text--1">Текст 1</h1>
-            <h2 class="carousel__intro-text carousel__intro-text--2">Текст 2</h2>
-            <div class="carousel__white-area"></div>
+            <img src="./assets/SamsungLogo.png" alt="Logo Samsung" class="left-area__logo">
+
             <div class="text">
                 <h1 class="text__title">
                     See why the Bespoke Jet™ <br> is “so good” it made this <br>
@@ -23,17 +25,20 @@
                 </h1>
                 <h2 class="text__description">
                     Відкрийте для себе інноваційний світ Bespoke Jet™.
-                    <a href="#" class="text__link">Read more...</a>
+                    <a href="#" class="text__link" target="_blank">Read more...</a>
                 </h2>
             </div>
-            <div class="text__items">
+            <div class="left-area__items">
                 <div class="navigation">
                     <img class="navigation__arrow navigation__arrow--left" src="./assets/LeftArrow.png" alt="Left Arrow">
                     <span class="navigation__counter">1/5</span>
                     <img class="navigation__arrow navigation__arrow--right" src="./assets/RightArrow.png" alt="Right Arrow">
                 </div>
-                <button class="carousel__button">SHOP NOW</button>
+                <button class="left-area__button" onclick="window.open('', '_blank')">SHOP NOW</button>
             </div>
+
+        </div>
+        <div class="carousel__white-area">
         </div>
         <div class="carousel__right-area">
             <img class="carousel__right-image" src="./assets/Image1.png" alt="Right Slide">
