@@ -34,15 +34,11 @@ const staticTextMini = document.querySelector('.carousel__static-text-mini');
 const textTitle = document.querySelector('.text__title');
 
 function updateSlide(index) {
-    // Анімація зникнення зображення
     gsap.to(rightImage, { opacity: 0, duration: 0, onComplete: () => {
-        // Після завершення зникнення змінюємо джерело зображення
         rightImage.src = images[index];
-        // Анімація появи нового зображення
         gsap.to(rightImage, { opacity: 1, duration: 0.2 });
     }});
 
-    // Оновлення лічильника слайдів і опису
     slideCounter.textContent = `${index + 1}/${images.length}`;
     textDescription.innerHTML = `${descriptions[index]} ${inlineLink}`;
     gsap.fromTo(textDescription, { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 });
